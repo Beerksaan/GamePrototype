@@ -4,15 +4,18 @@ using UnityEngine.InputSystem;
 public class PlayerBehavior : MonoBehaviour
 {
     public Rigidbody2D rb;
+    [Header("Movement")]
     public float moveSpeed = 5f;
+    float horizontalMovement;
 
-    float horizontalMovement; 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+    [Header("Jumping")]
+    public float jumpPower = 10f;
 
-    // Update is called once per frame
+    [Header("GroundCheck")]
+    public Transform GroundCheckPos;
+    public Vector2 GroundCheckSize = new Vector2(0.5f, 0.05f);
+    public LayerMask GroundLayer;
+
     void Update()
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
@@ -22,4 +25,18 @@ public class PlayerBehavior : MonoBehaviour
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
     } 
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed) 
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);    
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawCube(GroundCheckPos.position, GroundCheckSize);
+
+    }
 }
