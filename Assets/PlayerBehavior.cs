@@ -15,6 +15,7 @@ public class PlayerBehavior : MonoBehaviour
     public Transform GroundCheckPos;
     public Vector2 GroundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask GroundLayer;
+    public Vector2 test = new Vector2();
 
     void Update()
     {
